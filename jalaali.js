@@ -23,3 +23,30 @@ function toJalaali(gy, gm, gd) {
     return { jy: jy, jm: jm, jd: jd };
   }
   
+
+function toGregorian(jy, jm, jd) {
+  var gy, gm, gd, days;
+  var sal_a = [0,31,62,93,124,155,186,216,246,276,306,336];
+  jy += 1595;
+  days = -355668 + (365 * jy) + Math.floor(jy / 33) * 8 + Math.floor(((jy % 33) + 3) / 4) + jd + ((jm < 7) ? ((jm - 1) * 31) : (((jm - 7) * 30) + 186));
+  gy = 400 * Math.floor(days / 146097);
+  days %= 146097;
+  if (days > 36524) {
+    gy += 100 * Math.floor(--days / 36524);
+    days %= 36524;
+    if (days >= 365) days++;
+  }
+  gy += 4 * Math.floor(days / 1461);
+  days %= 1461;
+  if (days > 365) {
+    gy += Math.floor((days - 1) / 365);
+    days = (days - 1) % 365;
+  }
+  var gd = days + 1;
+  var sal_a2 = ((gy % 4 === 0 && gy % 100 !== 0) || (gy % 400 === 0)) ?
+    [0,31,60,91,121,152,182,213,244,274,305,335] :
+    [0,31,59,90,120,151,181,212,243,273,304,334];
+  for (gm = 0; gm < 12 && gd > sal_a2[gm]; gm++);
+  gd -= sal_a2[gm - 1];
+  return { gy: gy, gm: gm, gd: gd };
+}
