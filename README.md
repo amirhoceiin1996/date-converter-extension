@@ -15,7 +15,8 @@ A lightweight Chrome extension that automatically converts selected **Gregorian 
 
 ## 📸 Demo
 
-![Demo GIF or Screenshot here](link-if-you-add-one-later)
+<img width="405" height="407" alt="image" src="https://github.com/user-attachments/assets/a8081d3e-6d21-47f3-b032-9e8208f45b83" />
+
 
 ---
 
