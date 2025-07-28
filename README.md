@@ -25,3 +25,8 @@ A lightweight Chrome extension that automatically converts selected **Gregorian 
 1. Clone or download this repository:
    ```bash
    git clone https://github.com/YOUR_USERNAME/date-converter-extension.git
+
+2. Go to chrome://extensions in your Chrome browser
+3. Enable Developer Mode (top-right)
+4. Click "Load unpacked"
+5. Select the folder containing the extension files
