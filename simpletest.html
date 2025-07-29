@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تست تاریخ‌ها</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .content h2 {
+            margin-bottom: 20px;
+        }
+
+        .date {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #333;
+            cursor: default;
+        }
+
+        .date:hover {
+            color: #333; /* no effect on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h2>تست تاریخ‌های میلادی و شمسی</h2>
+        <div class="date">میلادی: 5 May 2025</div>
+        <div class="date">میلادی: May 5, 2020</div>
+        <div class="date">میلادی: 2022-12-25</div>
+        <div class="date">میلادی: 04/04/2023</div>
+        <div class="date">شمسی: 15 اردیبهشت 1400</div>
+        <div class="date">شمسی: 1399/08/14</div>
+        <div class="date">شمسی: 1403-02-20</div>
+        <div class="date">شمسی: 1404/02/15</div>
+        <div class="date">شمسی: 1395/02/25</div>
+        <div class="date">شمسی: 1402.03.15</div>
+        <div class="date">شمسی: ۱۴۰۰/۰۵/۲۳</div>
+        <div class="date">شمسی: 1398.03.10</div>
+        <div class="date">شمسی: 1401.07.12</div>
+    </div>
+
+    <script>
+        // Removing the alert popup and keeping the text simple
+        document.querySelectorAll('.date').forEach(item => {
+            item.addEventListener('click', function() {
+                const text = item.innerText;
+                console.log("Selected date text:", text);
+                // Here you would use your date conversion functions
+                // This is just a placeholder for your logic
+            });
+        });
+    </script>
+</body>
+</html>
