@@ -49,9 +49,19 @@ function parseDate(text) {
         [year, month, day] = [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
       } else if (isNaN(match[1])) {
         const monthNames = {
-          january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
-          july: 7, august: 8, september: 9, october: 10, november: 11, december: 12
-        };
+                              january: 1, jan: 1,
+                              february: 2, feb: 2,
+                              march: 3, mar: 3,
+                              april: 4, apr: 4,
+                              may: 5,
+                              june: 6, jun: 6,
+                              july: 7, jul: 7,
+                              august: 8, aug: 8,
+                              september: 9, sep: 9,
+                              october: 10, oct: 10,
+                              november: 11, nov: 11,
+                              december: 12, dec: 12
+           };
         const monthName = match[1].toLowerCase();
         [day, month, year] = [parseInt(match[2]), monthNames[monthName], parseInt(match[3])];
       } else if (parseInt(match[3]) > 1500) {
@@ -115,9 +125,10 @@ function getMonthNameFa(m) {
   return names[m - 1];
 }
 
-// نمایش پاپ‌آپ در مکان انتخاب‌شده
+
 function showPopup(originalText, convertedDate, type) {
   const popup = document.createElement("div");
+  popup.dataset.datePopup = "true";
 
   let message;
   if (type === "gregorian") {
@@ -128,16 +139,13 @@ function showPopup(originalText, convertedDate, type) {
 
   popup.innerText = message;
   popup.className = "date-converter-popup";
-
-  // استایل اولیه
   popup.style.position = "absolute";
   popup.style.background = "#fefefe";
   popup.style.padding = "8px 12px";
   popup.style.border = "1px solid #ccc";
   popup.style.borderRadius = "8px";
   popup.style.boxShadow = "0 2px 10px rgba(0,0,0,0.2)";
-  popup.style.fontFamily = type === "gregorian" ? "Tahoma, sans-serif" : "Vazir, Tahoma, sans-serif";
-  popup.style.direction = type === "gregorian" ? "rtl" : "ltr";
+  popup.style.fontFamily = type === "gregorian" ? "Tahoma" : "Vazir";
   popup.style.zIndex = 9999;
 
   document.body.appendChild(popup);
@@ -149,5 +157,18 @@ function showPopup(originalText, convertedDate, type) {
   popup.style.top = `${rect.bottom + window.scrollY + 5}px`;
   popup.style.left = `${rect.left + window.scrollX}px`;
 
-  setTimeout(() => popup.remove(), 5000);
+  // ✅ Hide on outside click
+  function handleOutsideClick(event) {
+    if (!popup.contains(event.target)) {
+      popup.remove();
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+  }
+  document.addEventListener("mousedown", handleOutsideClick);
+
+  // Optional: auto-remove after 5 seconds
+  setTimeout(() => {
+    popup.remove();
+    document.removeEventListener("mousedown", handleOutsideClick);
+  }, 3000);
 }
