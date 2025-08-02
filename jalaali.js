@@ -23,7 +23,6 @@ function toJalaali(gy, gm, gd) {
     return { jy: jy, jm: jm, jd: jd };
   }
   
-
 function toGregorian(jy, jm, jd) {
   var gy, gm, gd, days;
   var sal_a = [0,31,62,93,124,155,186,216,246,276,306,336];
