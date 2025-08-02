@@ -39,8 +39,8 @@ A lightweight Chrome extension that automatically converts selected **Gregorian 
 
 ## 📸 Demo
 
-<img width="405" height="407" alt="image" src="https://github.com/user-attachments/assets/a8081d3e-6d21-47f3-b032-9e8208f45b83" />
-<img width="538" height="363" alt="image" src="https://github.com/user-attachments/assets/5bffdae6-b5bf-4491-93c3-d08b6b94ac80" />
+<img width="305" height="307" alt="image" src="https://github.com/user-attachments/assets/a8081d3e-6d21-47f3-b032-9e8208f45b83" />
+<img width="438" height="263" alt="image" src="https://github.com/user-attachments/assets/5bffdae6-b5bf-4491-93c3-d08b6b94ac80" />
 
 
 ---
