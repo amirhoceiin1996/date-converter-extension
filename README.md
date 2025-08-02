@@ -9,10 +9,18 @@ A lightweight Chrome extension that automatically converts selected **Gregorian 
 
 ## 🚀 Features
 
-- 🖱️ Highlight a Gregorian date (e.g., `May 5, 2025`) on any webpage
-- 📌 Instantly see the Persian calendar equivalent (e.g., `1404 تاریخ شمسی: 15 اردیبهشت`)
-- 🌐 Works on all websites
-- 💡 Fully client-side — no server, no internet needed
+🖱️ Highlight a **Gregorian or Persian date** on any webpage  
+🔁 Instantly convert:
+
+- From **Gregorian to Persian** — e.g. `May 5, 2025` → `تاریخ شمسی: ۱۵ اردیبهشت ۱۴۰۴`
+- From **Persian to Gregorian** — e.g. `۱۴۰۴/۰۲/۱۵` or `۱۵ اردیبهشت ۱۴۰۴` → `Gregorian: Mon May 5 2025`
+
+📌 Converted date appears right below the selected text in a stylish popup  
+🌐 Works on all websites — supports multiple formats (e.g. `1402-5-14`, `8.2.2025`, `August 2, 2025`, `۱۴۰۲.۰۵.۱۴`)  
+💡 Fully client-side — no server, no internet needed  
+🌍 Persian dates are displayed in **native Persian format** with **Persian digits**
+
+  
 
 ✅ تبدیل تاریخ میلادی به تاریخ شمسی (با نمایش فارسی)
 
