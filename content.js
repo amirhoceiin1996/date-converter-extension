@@ -7,13 +7,17 @@ document.addEventListener("mouseup", function () {
   const parsed = parseDate(selection);
   if (!parsed) return;
 
+  console.log("Selected date type:", parsed.type);  // Log the type of selected date
   showPopup(selection, parsed.date, parsed.type);
 });
 
 function parseDate(text) {
-  const gregorian = new Date(text);
-  if (!isNaN(gregorian)) {
-    return { type: "gregorian", date: gregorian };
+  const gregorianRegex = /(\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4})/;
+  if (gregorianRegex.test(text)) {
+    const gregorian = new Date(text);
+    if (!isNaN(gregorian)) {
+      return { type: "gregorian", date: gregorian };
+    }
   }
 
   const jalali = parseJalaliText(text);
@@ -27,7 +31,7 @@ function parseDate(text) {
 }
 
 function parseJalaliText(text) {
-  const regex = /(\d{4})[\/\-. ](\d{1,2})[\/\-. ](\d{1,2})/;
+  const regex = /(\d{4})[\/\-. ]?(\d{1,2})[\/\-. ]?(\d{1,2})/;
   const match = text.match(regex);
   if (!match) return null;
 
@@ -47,7 +51,7 @@ function toJalaliStr(gregorianDate) {
 }
 
 function getMonthName(m) {
-  const names = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
+  const names = ["Farvardin", "Ordibehesht", "Khordad", "Tir", "Mordad", "Shahrivar", "Mehr", "Aban", "Azar", "Dey", "Bahman", "Esfand"];
   return names[m - 1];
 }
 
@@ -56,9 +60,9 @@ function showPopup(originalText, convertedDate, type) {
 
   let message;
   if (type === "gregorian") {
-    message = `تاریخ شمسی: ${toJalaliStr(convertedDate)}`;
+    message = `Shamsi date: ${toJalaliStr(convertedDate)}`;  // Convert Gregorian to Jalali
   } else if (type === "jalali") {
-    message = `Gregorian: ${convertedDate.toDateString()}`;
+    message = `Gregorian: ${convertedDate.toDateString()}`;  // Convert Jalali to Gregorian
   }
 
   popup.innerText = message;
