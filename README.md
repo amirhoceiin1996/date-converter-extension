@@ -2,8 +2,8 @@
 
 
 A lightweight Chrome extension that automatically converts selected **Gregorian dates** on web pages into **Jalali (Persian)** format and displays a popup with the result.
-
 این افزونه به شما این امکان را می‌دهد که تاریخ‌های میلادی یا شمسی را در صفحات وب به‌راحتی انتخاب (هایلایت) کنید و بلافاصله تاریخ معادل آن را در یک پاپ‌آپ زیر متن هایلات شده مشاهده نمایید.
+
 ---
 
 ## 🚀 Features
@@ -19,6 +19,7 @@ A lightweight Chrome extension that automatically converts selected **Gregorian 
 - `2025-08-02` یا `2025/8/2`
 - `1403/07/12` یا `۱۴۰۳.۷.۱۲`
 - `۱۵ مرداد ۱۴۰۲`
+
 ✅ شناسایی خودکار زبان و قالب تاریخ
 ✅ انجام تمام پردازش‌ها در سمت کاربر (Client-Side)
 
