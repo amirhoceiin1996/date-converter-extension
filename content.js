@@ -140,13 +140,16 @@ function showPopup(originalText, convertedDate, type) {
   popup.innerText = message;
   popup.className = "date-converter-popup";
   popup.style.position = "absolute";
-  popup.style.background = "#fefefe";
+  popup.style.background = "#f2f2f2ff";
   popup.style.padding = "8px 12px";
   popup.style.border = "1px solid #ccc";
   popup.style.borderRadius = "8px";
   popup.style.boxShadow = "0 2px 10px rgba(0,0,0,0.2)";
   popup.style.fontFamily = type === "gregorian" ? "Tahoma" : "Vazir";
   popup.style.zIndex = 9999;
+  popup.style.transition = "opacity 0.3s ease-in-out";
+
+
 
   document.body.appendChild(popup);
 
@@ -157,18 +160,23 @@ function showPopup(originalText, convertedDate, type) {
   popup.style.top = `${rect.bottom + window.scrollY + 5}px`;
   popup.style.left = `${rect.left + window.scrollX}px`;
 
+  
   // ✅ Hide on outside click
   function handleOutsideClick(event) {
     if (!popup.contains(event.target)) {
-      popup.remove();
+      popup.classList.add("fade-out");
+      setTimeout(() => popup.remove(), 500);  // Wait for fade-out before removing
       document.removeEventListener("mousedown", handleOutsideClick);
     }
   }
+
   document.addEventListener("mousedown", handleOutsideClick);
 
   // Optional: auto-remove after 5 seconds
   setTimeout(() => {
-    popup.remove();
+    popup.classList.add("fade-out");
+    setTimeout(() => popup.remove(), 500);  // Wait for fade-out before removing
     document.removeEventListener("mousedown", handleOutsideClick);
   }, 3000);
+
 }

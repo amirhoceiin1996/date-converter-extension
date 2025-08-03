@@ -1,13 +1,17 @@
 .date-converter-popup {
-    position: absolute;
-    background: #fff;
-    color: #000;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    font-size: 14px;
-    z-index: 9999;
-    direction: rtl;
-  }
-  
+  position: absolute;
+  background: rgba(172, 47, 47, 0.9);
+  padding: 12px 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: 'Vazir', sans-serif;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #ccc;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 9999;
+}
+
+.date-converter-popup.fade-out {
+  opacity: 0;
+}
