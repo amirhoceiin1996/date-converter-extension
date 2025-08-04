@@ -34,17 +34,27 @@ function parseDate(text) {
     return { type: "jalali", date };
   }
 
-  // تشخیص تاریخ میلادی تنها در صورتی که سال از 1500 بزرگ‌تر باشد
+  // Check for Persian dates with Persian month names
+  const gregorianPersianMonth = parseGregorianWithPersianMonth(normalized);
+  if (gregorianPersianMonth) {
+    const date = new Date(gregorianPersianMonth.year, gregorianPersianMonth.month - 1, gregorianPersianMonth.day);
+    return { type: "gregorian", date };
+  }
+
+  // Check for Gregorian dates (handled with slashes, dots, full month names)
   const gregorianPatterns = [
     /\b(\d{4})[\/\-\.](\d{1,2})[\/\-\.](\d{1,2})\b/,
     /\b(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})\b/,
-    /\b([A-Za-z]+)\s+(\d{1,2}),\s*(\d{4})\b/
+    /\b([A-Za-z]+)\s+(\d{1,2}),\s*(\d{4})\b/,
+    /\b([A-Za-z]{3})\-(\d{1,2})\-(\d{4})\b/,
+    /\b(\d{1,2})\.(\d{1,2})\.(\d{4})\b/
   ];
 
   for (let regex of gregorianPatterns) {
     const match = normalized.match(regex);
     if (match) {
       let year, month, day;
+
       if (match[1].length === 4 && parseInt(match[1]) > 1500) {
         [year, month, day] = [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
       } else if (isNaN(match[1])) {
@@ -67,12 +77,37 @@ function parseDate(text) {
       } else if (parseInt(match[3]) > 1500) {
         [day, month, year] = [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
       } else {
-        continue; // سال کمتر از 1500 باشد → نادیده بگیر
+        continue; // Skip if year is less than 1500 (to avoid parsing Persian dates)
       }
 
       const gregorian = new Date(year, month - 1, day);
       if (!isNaN(gregorian)) return { type: "gregorian", date: gregorian };
     }
+  }
+
+  return null;
+}
+
+// Parse Gregorian dates written in Persian with Persian month names (e.g., ۲۲ اوت ۱۹۹۶)
+function parseGregorianWithPersianMonth(text) {
+  const persianMonths = {
+    'ژانویه': 'January', 'فوریه': 'February', 'مارس': 'March', 'آوریل': 'April',
+    'مه': 'May', 'ژوئن': 'June', 'ژوئیه': 'July', 'آگوست': 'August', 'سپتامبر': 'September',
+    'اکتبر': 'October', 'نوامبر': 'November', 'دسامبر': 'December', 'اوت': 'August'
+  };
+
+  const regex = /(\d{1,2})\s+([ا-ی]+)\s+(\d{4})/;
+  const match = text.match(regex);
+
+  if (match && persianMonths[match[2]]) {
+    const day = parseInt(match[1]);
+    const month = persianMonths[match[2]];
+    const year = parseInt(match[3]);
+
+    // Get the month number from the English month name
+    const monthNumber = new Date(`${month} 1, 2022`).getMonth() + 1;
+    
+    return { day, month: monthNumber, year };
   }
 
   return null;
@@ -125,7 +160,7 @@ function getMonthNameFa(m) {
   return names[m - 1];
 }
 
-
+// نمایش پاپ‌آپ
 function showPopup(originalText, convertedDate, type) {
   const popup = document.createElement("div");
   popup.dataset.datePopup = "true";
@@ -149,8 +184,6 @@ function showPopup(originalText, convertedDate, type) {
   popup.style.zIndex = 9999;
   popup.style.transition = "opacity 0.3s ease-in-out";
 
-
-
   document.body.appendChild(popup);
 
   const selection = window.getSelection();
@@ -160,23 +193,21 @@ function showPopup(originalText, convertedDate, type) {
   popup.style.top = `${rect.bottom + window.scrollY + 5}px`;
   popup.style.left = `${rect.left + window.scrollX}px`;
 
-  
-  // ✅ Hide on outside click
+  // Hide on outside click
   function handleOutsideClick(event) {
     if (!popup.contains(event.target)) {
       popup.classList.add("fade-out");
-      setTimeout(() => popup.remove(), 500);  // Wait for fade-out before removing
+      setTimeout(() => popup.remove(), 500);
       document.removeEventListener("mousedown", handleOutsideClick);
     }
   }
 
   document.addEventListener("mousedown", handleOutsideClick);
 
-  // Optional: auto-remove after 5 seconds
+  // Optional: auto-remove after 3 seconds
   setTimeout(() => {
     popup.classList.add("fade-out");
-    setTimeout(() => popup.remove(), 500);  // Wait for fade-out before removing
+    setTimeout(() => popup.remove(), 500);
     document.removeEventListener("mousedown", handleOutsideClick);
   }, 3000);
-
 }
